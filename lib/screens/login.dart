@@ -125,121 +125,123 @@ class _LoginState extends State<Login> {
   }
 
   Widget keypad() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            new Expanded(
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  _pinKeyboardInputButton(
-                      label: "1",
-                      onPressed: () {
-                        _setCurrentDigit(1);
-                      }),
-                  _pinKeyboardInputButton(
-                      label: "2",
-                      onPressed: () {
-                        _setCurrentDigit(2);
-                      }),
-                  _pinKeyboardInputButton(
-                      label: "3",
-                      onPressed: () {
-                        _setCurrentDigit(3);
-                      }),
-                ],
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              new Expanded(
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _pinKeyboardInputButton(
+                        label: "1",
+                        onPressed: () {
+                          _setCurrentDigit(1);
+                        }),
+                    _pinKeyboardInputButton(
+                        label: "2",
+                        onPressed: () {
+                          _setCurrentDigit(2);
+                        }),
+                    _pinKeyboardInputButton(
+                        label: "3",
+                        onPressed: () {
+                          _setCurrentDigit(3);
+                        }),
+                  ],
+                ),
               ),
-            ),
-            new Expanded(
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  _pinKeyboardInputButton(
-                      label: "4",
-                      onPressed: () {
-                        _setCurrentDigit(4);
-                      }),
-                  _pinKeyboardInputButton(
-                      label: "5",
-                      onPressed: () {
-                        _setCurrentDigit(5);
-                      }),
-                  _pinKeyboardInputButton(
-                      label: "6",
-                      onPressed: () {
-                        _setCurrentDigit(6);
-                      }),
-                ],
+              new Expanded(
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _pinKeyboardInputButton(
+                        label: "4",
+                        onPressed: () {
+                          _setCurrentDigit(4);
+                        }),
+                    _pinKeyboardInputButton(
+                        label: "5",
+                        onPressed: () {
+                          _setCurrentDigit(5);
+                        }),
+                    _pinKeyboardInputButton(
+                        label: "6",
+                        onPressed: () {
+                          _setCurrentDigit(6);
+                        }),
+                  ],
+                ),
               ),
-            ),
-            new Expanded(
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  _pinKeyboardInputButton(
-                      label: "7",
-                      onPressed: () {
-                        _setCurrentDigit(7);
-                      }),
-                  _pinKeyboardInputButton(
-                      label: "8",
-                      onPressed: () {
-                        _setCurrentDigit(8);
-                      }),
-                  _pinKeyboardInputButton(
-                      label: "9",
-                      onPressed: () {
-                        _setCurrentDigit(9);
-                      }),
-                ],
+              new Expanded(
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _pinKeyboardInputButton(
+                        label: "7",
+                        onPressed: () {
+                          _setCurrentDigit(7);
+                        }),
+                    _pinKeyboardInputButton(
+                        label: "8",
+                        onPressed: () {
+                          _setCurrentDigit(8);
+                        }),
+                    _pinKeyboardInputButton(
+                        label: "9",
+                        onPressed: () {
+                          _setCurrentDigit(9);
+                        }),
+                  ],
+                ),
               ),
-            ),
-            new Expanded(
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  _pinKeyboardActionButton(
-                    label: Image.asset("assets/images/verified copy.png"),
-                    onPressed: () {},
-                  ),
-                  _pinKeyboardInputButton(
-                      label: "0",
-                      onPressed: () {
-                        _setCurrentDigit(0);
-                      }),
-                  _pinKeyboardActionButton(
-                      label: new Icon(
-                        Icons.backspace,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          if (_fourthDigit != null) {
-                            _fourthDigit = null;
-                          } else if (_thirdDigit != null) {
-                            _thirdDigit = null;
-                          } else if (_secondDigit != null) {
-                            _secondDigit = null;
-                          } else if (_firstDigit != null) {
-                            _firstDigit = null;
-                          }
-                        });
-                      }),
-                ],
+              new Expanded(
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _pinKeyboardActionButton(
+                      label: Image.asset("assets/images/verified copy.png"),
+                      onPressed: () {},
+                    ),
+                    _pinKeyboardInputButton(
+                        label: "0",
+                        onPressed: () {
+                          _setCurrentDigit(0);
+                        }),
+                    _pinKeyboardActionButton(
+                        label: new Icon(
+                          Icons.backspace,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if (_fourthDigit != null) {
+                              _fourthDigit = null;
+                            } else if (_thirdDigit != null) {
+                              _thirdDigit = null;
+                            } else if (_secondDigit != null) {
+                              _secondDigit = null;
+                            } else if (_firstDigit != null) {
+                              _firstDigit = null;
+                            }
+                          });
+                        }),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.5,
-        decoration: ShapeDecoration(
-          color: Color(0xff222831),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40.0),
-              topRight: Radius.circular(40.0),
+            ],
+          ),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.5,
+          decoration: ShapeDecoration(
+            color: Color(0xff222831),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40.0),
+                topRight: Radius.circular(40.0),
+              ),
             ),
           ),
         ),
