@@ -13,6 +13,8 @@ class _LoginState extends State<Login> {
   int _secondDigit;
   int _thirdDigit;
   int _fourthDigit;
+
+  String user = "ABC";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,18 +43,21 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: 30.0,
                     ),
-                    Text(
-                      "Welcome Back",
-                      style: TextStyle(
-                        color: Color(0xfffa947e),
-                        fontSize: 18.0,
-                        fontFamily: 'Lato',
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        "Welcome Back",
+                        style: TextStyle(
+                          color: Color(0xfffa947e),
+                          fontSize: 18.0,
+                          fontFamily: 'Lato',
+                        ),
                       ),
                     ),
                   ],
                 ),
                 width: MediaQuery.of(context).size.width,
-                height: 250.0,
+                height: MediaQuery.of(context).size.height * 0.28,
                 decoration: ShapeDecoration(
                   color: Color(0xff222831),
                   shape: RoundedRectangleBorder(
@@ -66,6 +71,8 @@ class _LoginState extends State<Login> {
               // The container with the user's name on it and image
               Container(
                 alignment: Alignment.topCenter,
+                margin: EdgeInsets.fromLTRB(
+                    0, MediaQuery.of(context).size.height * 0.28, 0, 0),
                 padding:
                     new EdgeInsets.only(top: 220.0, right: 20.0, left: 20.0),
                 child: new Container(
@@ -88,12 +95,15 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         width: 20.0,
                       ),
-                      Text(
-                        "Name",
-                        style: TextStyle(
-                          color: Color(0xfffa947e),
-                          fontSize: 18.0,
+                      reenter(),
+                      Spacer(),
+                      IconButton(
+                        alignment: Alignment.topRight,
+                        icon: Icon(
+                          Icons.refresh,
+                          color: Color(0xffc4c4c4),
                         ),
+                        onPressed: () {},
                       ),
                     ],
                   ),
@@ -114,10 +124,6 @@ class _LoginState extends State<Login> {
           ),
           //The containers to input login pin
           printPinField(),
-          SizedBox(
-            height: 24.0,
-          ),
-          //The keypad to input the login pin
           keypad(),
         ],
       ),
@@ -278,14 +284,18 @@ class _LoginState extends State<Login> {
   }
 
   Widget printPinField() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        pinField(_firstDigit),
-        pinField(_secondDigit),
-        pinField(_thirdDigit),
-        pinField(_fourthDigit),
-      ],
+    return Center(
+      child: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            pinField(_firstDigit),
+            pinField(_secondDigit),
+            pinField(_thirdDigit),
+            pinField(_fourthDigit),
+          ],
+        ),
+      ),
     );
   }
 
@@ -364,6 +374,31 @@ class _LoginState extends State<Login> {
         ),
         child: new Center(
           child: label,
+        ),
+      ),
+    );
+  }
+
+  Widget reenter() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.4,
+      child: Center(
+        child: TextFormField(
+          initialValue: user,
+          style: TextStyle(
+            color: Color(0xfffa947e),
+            fontSize: 16.0,
+            fontFamily: 'Lato',
+          ),
+          maxLength: 100,
+          decoration: new InputDecoration(
+            border: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+            counterText: "",
+          ),
         ),
       ),
     );
