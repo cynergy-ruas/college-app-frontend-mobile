@@ -1,7 +1,10 @@
 import 'package:college_app/screens/home.dart';
 import 'package:flutter/material.dart';
+import 'package:college_app/screens/username.dart';
 
 class Login extends StatefulWidget {
+  String user;
+  Login(this.user);
   @override
   _LoginState createState() => _LoginState();
 }
@@ -14,7 +17,6 @@ class _LoginState extends State<Login> {
   int _thirdDigit;
   int _fourthDigit;
 
-  String user = "ABC";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,9 +74,7 @@ class _LoginState extends State<Login> {
               Container(
                 alignment: Alignment.topCenter,
                 margin: EdgeInsets.fromLTRB(
-                    0, MediaQuery.of(context).size.height * 0.28, 0, 0),
-                padding:
-                    new EdgeInsets.only(top: 220.0, right: 20.0, left: 20.0),
+                    0, MediaQuery.of(context).size.height * 0.25, 0, 0),
                 child: new Container(
                   height: 58,
                   width: 313.0,
@@ -95,15 +95,13 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         width: 20.0,
                       ),
-                      reenter(),
-                      Spacer(),
-                      IconButton(
-                        alignment: Alignment.topRight,
-                        icon: Icon(
-                          Icons.refresh,
-                          color: Color(0xffc4c4c4),
+                      Text(
+                        widget.user,
+                        style: TextStyle(
+                          color: Color(0xfffa947e),
+                          fontSize: 16.0,
+                          fontFamily: 'Lato',
                         ),
-                        onPressed: () {},
                       ),
                     ],
                   ),
@@ -374,31 +372,6 @@ class _LoginState extends State<Login> {
         ),
         child: new Center(
           child: label,
-        ),
-      ),
-    );
-  }
-
-  Widget reenter() {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.4,
-      child: Center(
-        child: TextFormField(
-          initialValue: user,
-          style: TextStyle(
-            color: Color(0xfffa947e),
-            fontSize: 16.0,
-            fontFamily: 'Lato',
-          ),
-          maxLength: 100,
-          decoration: new InputDecoration(
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
-            counterText: "",
-          ),
         ),
       ),
     );
