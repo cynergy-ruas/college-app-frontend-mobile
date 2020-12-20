@@ -1,4 +1,4 @@
-import 'package:frontend/Screens/home.dart';
+import 'package:frontend/Screens/chat_main.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -317,7 +317,7 @@ class _LoginState extends State<Login> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => HomePage(),
+              builder: (context) => MainChat(),
             ),
           );
         }
