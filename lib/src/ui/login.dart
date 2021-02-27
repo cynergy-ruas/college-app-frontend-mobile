@@ -1,3 +1,4 @@
+import 'package:frontend/src/ui/chat.dart';
 import 'package:frontend/src/ui/home.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class _LoginState extends State<Login> {
   int _secondDigit;
   int _thirdDigit;
   int _fourthDigit;
+  var pin;
 
   @override
   Widget build(BuildContext context) {
@@ -205,15 +207,6 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     _pinKeyboardActionButton(
-                      label: Image.asset("assets/images/verified copy.png"),
-                      onPressed: () {},
-                    ),
-                    _pinKeyboardInputButton(
-                        label: "0",
-                        onPressed: () {
-                          _setCurrentDigit(0);
-                        }),
-                    _pinKeyboardActionButton(
                         label: new Icon(
                           Icons.backspace,
                           color: Colors.white,
@@ -231,6 +224,25 @@ class _LoginState extends State<Login> {
                             }
                           });
                         }),
+                    _pinKeyboardInputButton(
+                        label: "0",
+                        onPressed: () {
+                          _setCurrentDigit(0);
+                        }),
+                    _pinKeyboardActionButton(
+                      label:
+                          Image.asset("assets/images/circle-arrow-right.png"),
+                      onPressed: () {
+                        if (pin == finalPin) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MainChat(),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -260,9 +272,7 @@ class _LoginState extends State<Login> {
           child: new Text(
             digit != null ? digit.toString() : "",
             style: new TextStyle(
-              fontSize: 30.0,
-              color: Colors.white,
-            ),
+                fontSize: 30.0, color: Colors.white, fontFamily: 'ProductSans'),
           ),
           height: 50.0,
           width: 50.0,
@@ -308,19 +318,10 @@ class _LoginState extends State<Login> {
       } else if (_fourthDigit == null) {
         _fourthDigit = _currentDigit;
 
-        var pin = _firstDigit.toString() +
+        pin = _firstDigit.toString() +
             _secondDigit.toString() +
             _thirdDigit.toString() +
             _fourthDigit.toString();
-
-        if (pin == finalPin) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ),
-          );
-        }
       }
     });
   }
