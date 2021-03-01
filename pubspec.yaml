@@ -35,3 +35,6 @@ flutter:
     - family: Lato
       fonts:
         - asset: assets/fonts/Lato/Lato-Regular.ttf
+    - family: ProductSans
+      fonts:
+        - asset: assets/fonts/ProductSans-Bold.ttf
