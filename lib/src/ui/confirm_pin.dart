@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/src/ui/chat.dart';
 
 import 'Registeration_screen 1.dart';
 
 class ConfirmPin extends StatefulWidget {
+  final String fp;
+  ConfirmPin(this.fp);
   @override
   _ConfirmPinState createState() => _ConfirmPinState();
 }
 
 class _ConfirmPinState extends State<ConfirmPin> {
-  String finalPin = "1234";
+  var pin;
   int _currentDigit;
   int _firstDigit;
   int _secondDigit;
@@ -155,7 +159,9 @@ class _ConfirmPinState extends State<ConfirmPin> {
                         CupertinoIcons.arrow_right_circle,
                         color: Colors.white,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        checker();
+                      },
                     ),
                   ],
                 ),
@@ -229,22 +235,23 @@ class _ConfirmPinState extends State<ConfirmPin> {
         _thirdDigit = _currentDigit;
       } else if (_fourthDigit == null) {
         _fourthDigit = _currentDigit;
-
-        var pin = _firstDigit.toString() +
-            _secondDigit.toString() +
-            _thirdDigit.toString() +
-            _fourthDigit.toString();
-
-        if (pin == finalPin) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => RegisterationPage(),
-            ),
-          );
-        }
       }
+      pin = _firstDigit.toString() +
+          _secondDigit.toString() +
+          _thirdDigit.toString() +
+          _fourthDigit.toString();
     });
+  }
+
+  void checker() {
+    if (pin == widget.fp) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainChat(),
+        ),
+      );
+    }
   }
 
   void clearPin() {

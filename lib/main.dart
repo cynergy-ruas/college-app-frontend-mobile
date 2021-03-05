@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/src/bloc/auth/auth_bloc.dart';
-import 'package:frontend/src/ui/MessageScreen.dart';
 import 'package:frontend/src/ui/Registeration_screen%201.dart';
 import 'package:frontend/src/ui/Registeration_screen%202.dart';
 import 'package:frontend/src/ui/entry.dart';
@@ -35,6 +34,7 @@ class _AppHomeState extends State<AppHome> {
   PageController pageController1;
   PageController pageController2;
   PageController pageController3;
+  PageController pageController4;
   String user;
 
   @override
@@ -49,17 +49,17 @@ class _AppHomeState extends State<AppHome> {
 
   void goto1(int page) {
     pageController1.animateToPage(page,
-        duration: Duration(milliseconds: 800), curve: Curves.easeInOutQuart);
+        duration: Duration(milliseconds: 500), curve: Curves.easeInOutQuart);
   }
 
   void goto2(int page) {
     pageController2.animateToPage(page,
-        duration: Duration(milliseconds: 800), curve: Curves.easeInOutQuart);
+        duration: Duration(milliseconds: 500), curve: Curves.easeInOutQuart);
   }
 
   void goto3(int page) {
     pageController3.animateToPage(page,
-        duration: Duration(milliseconds: 800), curve: Curves.easeInOutQuart);
+        duration: Duration(milliseconds: 500), curve: Curves.easeInOutQuart);
   }
 
   void setUser(String s) {

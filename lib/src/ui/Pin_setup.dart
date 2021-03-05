@@ -10,7 +10,7 @@ class PinPage extends StatefulWidget {
 }
 
 class _PinPageState extends State<PinPage> {
-  String finalPin = "1234";
+  var pin;
   int _currentDigit;
   int _firstDigit;
   int _secondDigit;
@@ -193,7 +193,8 @@ class _PinPageState extends State<PinPage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ConfirmPin()),
+                          MaterialPageRoute(
+                              builder: (context) => ConfirmPin(pin)),
                         );
                       },
                     ),
@@ -270,19 +271,10 @@ class _PinPageState extends State<PinPage> {
       } else if (_fourthDigit == null) {
         _fourthDigit = _currentDigit;
 
-        var pin = _firstDigit.toString() +
+        pin = _firstDigit.toString() +
             _secondDigit.toString() +
             _thirdDigit.toString() +
             _fourthDigit.toString();
-
-        if (pin == finalPin) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => EnterUserName(),
-            ),
-          );
-        }
       }
     });
   }

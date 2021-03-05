@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/src/ui/MessageScreen.dart';
 import '../model/message.dart';
 
 class MainChat extends StatefulWidget {
+  final Function goto;
+
+  const MainChat({Key key, this.goto}) : super(key: key);
+
   @override
   _MainChatState createState() => _MainChatState();
 }
 
 class _MainChatState extends State<MainChat> {
   int fav = 8;
-  int n = 6;
-  String title = 'Channel name';
   String lastmessage = 'Last message';
   @override
   Widget build(BuildContext context) {
@@ -48,19 +51,21 @@ class _MainChatState extends State<MainChat> {
               height: 20.0,
             ),
             Expanded(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.6,
-                decoration: ShapeDecoration(
-                  color: Color(0xff222831),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40.0),
-                      topRight: Radius.circular(40.0),
+              child: SingleChildScrollView(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: ShapeDecoration(
+                    color: Color(0xff222831),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40.0),
+                        topRight: Radius.circular(40.0),
+                      ),
                     ),
                   ),
+                  child: channels(context),
                 ),
-                child: channels(context),
               ),
             )
           ],
@@ -94,7 +99,9 @@ class _MainChatState extends State<MainChat> {
         itemBuilder: (BuildContext context, int index) {
           final Message chat = chats[index];
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(_createRoute(chat.channel));
+            },
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 20,
@@ -176,5 +183,24 @@ class _MainChatState extends State<MainChat> {
     String s = "";
     s = a + " : " + b;
     return s;
+  }
+
+  Route _createRoute(String c) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => MessageScreen(c),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(0.0, 1.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 }
