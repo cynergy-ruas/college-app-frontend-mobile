@@ -15,8 +15,8 @@ class _PinSetupState extends State<PinSetup> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: double.infinity,
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         color: Color(0xff393E46),
         child: Center(
           child: SingleChildScrollView(
