@@ -19,5 +19,3 @@ class LoginEvent extends AuthEvent {
 class RegisterEvent extends AuthEvent {}
 
 class LogoutEvent extends AuthEvent {}
-
-class ChattingEvent extends AuthEvent {}

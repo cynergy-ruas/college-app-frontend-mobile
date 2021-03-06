@@ -67,19 +67,4 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield UnAuthenticated();
     }
   }
- 
-  Stream<AuthState> mapChatEventToState(ChatEvent event) async* {
-    try {
-      if (event is ChatEvent){
-        yield Chatting();
-      }
-      else {
-        yield Home();
-      }
-    }
-    catch{
-      yield Home();
-    }
-     
-  }
 }

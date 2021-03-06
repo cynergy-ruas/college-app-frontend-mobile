@@ -2,16 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/src/ui/confirm_pin.dart';
 
-class PinPage extends StatefulWidget {
-  final String text;
-  PinPage(this.text);
+import 'username.dart';
 
+class PinPage extends StatefulWidget {
   @override
   _PinPageState createState() => _PinPageState();
 }
 
 class _PinPageState extends State<PinPage> {
-  var pin;
+  String finalPin = "1234";
   int _currentDigit;
   int _firstDigit;
   int _secondDigit;
@@ -193,12 +192,9 @@ class _PinPageState extends State<PinPage> {
                         size: 30.0,
                       ),
                       onPressed: () {
-                        print(widget.text);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ConfirmPin(pin, widget.text)),
+                          MaterialPageRoute(builder: (context) => ConfirmPin()),
                         );
                       },
                     ),
@@ -275,10 +271,19 @@ class _PinPageState extends State<PinPage> {
       } else if (_fourthDigit == null) {
         _fourthDigit = _currentDigit;
 
-        pin = _firstDigit.toString() +
+        var pin = _firstDigit.toString() +
             _secondDigit.toString() +
             _thirdDigit.toString() +
             _fourthDigit.toString();
+
+        if (pin == finalPin) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EnterUserName(),
+            ),
+          );
+        }
       }
     });
   }

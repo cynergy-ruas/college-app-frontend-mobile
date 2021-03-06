@@ -14,12 +14,6 @@ class RegisterationPage extends StatefulWidget {
 }
 
 class _RegisterationPageState extends State<RegisterationPage> {
-  TextEditingController nameController,
-      regController,
-      emailController,
-      batchController,
-      deptController;
-
   var _currentStep = 0;
 
   PickedFile _image;
@@ -104,7 +98,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                 currentStep: this._currentStep,
                 onStepContinue: () {
                   setState(() {
-                    if (this._currentStep < steps().length - 1) {
+                    if (this._currentStep < steps.length - 1) {
                       this._currentStep = this._currentStep + 1;
                     } else {
                       print('completed . Check fields');
@@ -136,7 +130,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                     ],
                   );
                 },
-                steps: steps(),
+                steps: steps,
                 onStepTapped: (step) {
                   setState(() {
                     this._currentStep = step;
@@ -165,17 +159,11 @@ class _RegisterationPageState extends State<RegisterationPage> {
                       size: 30.0,
                     ),
                     onPressed: () {
-                      print(regController.text);
-                      setState(() {
-                        String reg = regController.text;
-                        print(reg);
-                        PinSetup(reg);
-                        widget.goto(1);
-                      });
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(builder: (context) => PinSetup()),
                       // );
+                      widget.goto(1);
                     }),
               ),
             )
@@ -183,120 +171,5 @@ class _RegisterationPageState extends State<RegisterationPage> {
         ),
       ),
     );
-  }
-
-  List<Step> steps() {
-    return [
-      Step(
-        title: Text(
-          'Name',
-          style: TextStyle(color: Color(0xFF8E8E8E)),
-        ),
-        content: Row(
-          children: [
-            Icon(Icons.account_circle, color: Color(0xFF8E8E8E)),
-            SizedBox(width: 10.0),
-            Expanded(
-              child: TextFormField(
-                controller: nameController,
-                style: TextStyle(color: Color(0xFF8E8E8E)),
-                decoration: InputDecoration(
-                    hintText: 'Enter your name',
-                    hintStyle: TextStyle(color: Color(0xFF8E8E8E))),
-              ),
-            ),
-          ],
-        ),
-      ),
-      Step(
-        title: Text(
-          'Registration Number',
-          style: TextStyle(color: Color(0xFF8E8E8E)),
-        ),
-        content: Row(
-          children: [
-            Icon(Icons.account_circle, color: Color(0xFF8E8E8E)),
-            SizedBox(width: 10.0),
-            Expanded(
-              child: TextFormField(
-                style: TextStyle(color: Color(0xFF8E8E8E)),
-                decoration: InputDecoration(
-                    hintText: '1XETXXXXXX',
-                    hintStyle: TextStyle(color: Color(0xFF8E8E8E))),
-                onChanged: (value) {
-                  setState(() {
-                    regController.text = value;
-                    print(regController.text);
-                  });
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-      Step(
-        title: Text(
-          'Email',
-          style: TextStyle(color: Color(0xFF8E8E8E)),
-        ),
-        content: Row(
-          children: [
-            Icon(Icons.account_circle, color: Color(0xFF8E8E8E)),
-            SizedBox(width: 10.0),
-            Expanded(
-              child: TextFormField(
-                controller: emailController,
-                style: TextStyle(color: Color(0xFF8E8E8E)),
-                decoration: InputDecoration(
-                    hintText: 'something@xyz.com',
-                    hintStyle: TextStyle(color: Color(0xFF8E8E8E))),
-              ),
-            ),
-          ],
-        ),
-      ),
-      Step(
-        title: Text(
-          'Department',
-          style: TextStyle(color: Color(0xFF8E8E8E)),
-        ),
-        content: Row(
-          children: [
-            Icon(Icons.account_circle, color: Color(0xFF8E8E8E)),
-            SizedBox(width: 10.0),
-            Expanded(
-              child: TextFormField(
-                controller: deptController,
-                style: TextStyle(color: Color(0xFF8E8E8E)),
-                decoration: InputDecoration(
-                    hintText: 'CSE',
-                    hintStyle: TextStyle(color: Color(0xFF8E8E8E))),
-              ),
-            ),
-          ],
-        ),
-      ),
-      Step(
-        title: Text(
-          'Batch',
-          style: TextStyle(color: Color(0xFF8E8E8E)),
-        ),
-        content: Row(
-          children: [
-            Icon(Icons.account_circle, color: Color(0xFF8E8E8E)),
-            SizedBox(width: 10.0),
-            Expanded(
-              child: TextFormField(
-                controller: batchController,
-                style: TextStyle(color: Color(0xFF8E8E8E)),
-                decoration: InputDecoration(
-                    hintText: '20XX',
-                    hintStyle: TextStyle(color: Color(0xFF8E8E8E))),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ];
   }
 }

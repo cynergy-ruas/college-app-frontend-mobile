@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:frontend/src/ui/chat.dart';
 import 'package:frontend/src/ui/home.dart';
+import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
-  final String user;
+  String user;
   Login(this.user);
   @override
   _LoginState createState() => _LoginState();
@@ -230,10 +230,8 @@ class _LoginState extends State<Login> {
                           _setCurrentDigit(0);
                         }),
                     _pinKeyboardActionButton(
-                      label: Icon(
-                        CupertinoIcons.arrow_right_circle,
-                        color: Colors.white,
-                      ),
+                      label:
+                          Image.asset("assets/images/circle-arrow-right.png"),
                       onPressed: () {
                         if (pin == finalPin) {
                           Navigator.push(
