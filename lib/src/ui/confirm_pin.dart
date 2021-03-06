@@ -1,15 +1,23 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/src/services/auth_services.dart';
+import 'package:frontend/src/ui/home.dart';
+import 'package:frontend/src/ui/stepper.dart';
 
 import 'Registeration_screen 1.dart';
 
 class ConfirmPin extends StatefulWidget {
+  final String fp;
+  final String text;
+  ConfirmPin(this.fp, this.text);
   @override
   _ConfirmPinState createState() => _ConfirmPinState();
 }
 
 class _ConfirmPinState extends State<ConfirmPin> {
-  String finalPin = "1234";
+  RegisterationPage r = RegisterationPage();
+  var pin;
   int _currentDigit;
   int _firstDigit;
   int _secondDigit;
@@ -169,6 +177,8 @@ class _ConfirmPinState extends State<ConfirmPin> {
                         
                       ),
                       onPressed: () {
+                        checker();
+                      },
                         setState(() {
                           if (_fourthDigit != null) {
                             _fourthDigit = null;
@@ -265,22 +275,28 @@ class _ConfirmPinState extends State<ConfirmPin> {
         _thirdDigit = _currentDigit;
       } else if (_fourthDigit == null) {
         _fourthDigit = _currentDigit;
-
-        var pin = _firstDigit.toString() +
-            _secondDigit.toString() +
-            _thirdDigit.toString() +
-            _fourthDigit.toString();
-
-        if (pin == finalPin) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => RegisterationPage(),
-            ),
-          );
-        }
       }
+      pin = _firstDigit.toString() +
+          _secondDigit.toString() +
+          _thirdDigit.toString() +
+          _fourthDigit.toString();
     });
+  }
+
+  void checker() async {
+    if (pin == widget.fp) {
+      String s = widget.text;
+      print(s);
+
+      var reg = await register(s, widget.fp);
+      print(reg);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainChat(),
+        ),
+      );
+    }
   }
 
   void clearPin() {

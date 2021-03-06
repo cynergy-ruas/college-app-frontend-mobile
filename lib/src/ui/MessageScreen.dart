@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+Color primaryColor = HexColor('#222831');
+Color secondaryColor = HexColor('#F8F8F8');
+Color tertiaryColor = HexColor('#1FFFFFFF');
 Color PrimaryColor = HexColor('#222831');
 Color SecondaryColor = HexColor('#F8F8F8');
 Color TertiaryColor = HexColor('#1FFFFFFF');
@@ -9,6 +12,8 @@ String channel =
     "Avengers"; // Here is where channel id has to be updated from API
 
 class MessageScreen extends StatefulWidget {
+  final String channel;
+  MessageScreen(this.channel);
   @override
   _MessageScreenState createState() => _MessageScreenState();
 }
@@ -23,6 +28,73 @@ class _MessageScreenState extends State<MessageScreen> {
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
+        backgroundColor: primaryColor,
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Positioned(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 0,
+                right: 0,
+                child: Column(
+                  children: [
+                    Container(
+                      height: height * 0.85,
+                      decoration: BoxDecoration(
+                        color: Colors.white12,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(80),
+                            bottomRight: Radius.circular(80)),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: width * 0.1),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: height * 0.13,
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: 20,
+                                  itemBuilder: (context, index) {
+                                    return MessageBubble(
+                                      width:
+                                          width, // Width should not be changed
+                                      height:
+                                          height, // Height should not be changed
+                                      isMe:
+                                          false, // isMe is true if sender is the same as current user, else false
+                                      message: "Heya", // Must be updated by API
+                                      sender:
+                                          "Ujjwal", // Must be updated by API
+                                      time: "3:15 a.m",
+                                    ); // Must be updated by API
+                                  }),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(width * 0.06),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.grey,
+                        ),
+                        child: Theme(
+                          data: new ThemeData(
+                            primaryColor: Colors.grey,
+                            primaryColorDark: Colors.grey,
+                          ),
+                          child: TextField(
+                            style: TextStyle(color: Colors.white),
+                            cursorColor: Colors.white12,
+                            decoration: InputDecoration(
         backgroundColor: PrimaryColor,
         body: Stack(
           children: [
@@ -103,6 +175,83 @@ class _MessageScreenState extends State<MessageScreen> {
                                   )),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              message = value;
+                            },
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        left: width * 0.05,
+                        top: height * 0.025,
+                        bottom: height * 0.01),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.arrow_back_ios_outlined,
+                            color: Colors.white,
+                            size: height * 0.04,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        SizedBox(
+                          width: width * 0.2,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              widget.channel,
+                              style: TextStyle(
+                                  fontSize: height * 0.035,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.cyanAccent),
+                            ),
+                            SizedBox(
+                              height: height * 0.02,
+                              width: width * 0.35,
+                              child: Divider(
+                                thickness: 8,
+                                color: Colors.grey,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: width * 0.02,
+                        ),
+                        Container(
+                          height: height * 0.07,
+                          width: height * 0.07,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(80),
+                          ),
+                          // child: The Image
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
                               )),
                           onChanged: (value) {
                             message = value;
@@ -238,7 +387,10 @@ class MessageBubble extends StatelessWidget {
                           bottomRight: Radius.circular(20),
                           bottomLeft: Radius.circular(20),
                         ),
+
+                  color: isMe ? primaryColor : secondaryColor),
                   color: isMe ? PrimaryColor : SecondaryColor),
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -248,6 +400,8 @@ class MessageBubble extends StatelessWidget {
                       message,
                       style: TextStyle(
                           fontSize: height * 0.02,
+
+                          color: isMe ? secondaryColor : Colors.black),
                           color: isMe ? SecondaryColor : Colors.black),
                     ),
                   ),

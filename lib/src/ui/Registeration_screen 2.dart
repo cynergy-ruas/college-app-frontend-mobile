@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'Pin_setup.dart';
 
 class PinSetup extends StatefulWidget {
+  final String text;
+  PinSetup(this.text);
+
   @override
   _PinSetupState createState() => _PinSetupState();
 }
@@ -64,9 +67,11 @@ class _PinSetupState extends State<PinSetup> {
                       size: 30.0,
                     ),
                     onPressed: () {
+                      print(widget.text);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PinPage()),
+                        MaterialPageRoute(
+                            builder: (context) => PinPage(widget.text)),
                       );
                     })
               ],

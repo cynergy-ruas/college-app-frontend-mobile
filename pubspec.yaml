@@ -20,7 +20,11 @@ dependencies:
   equatable: ^1.2.3
   http: ^0.12.2
   hexcolor: ^2.0.0
+
+  firebase_auth: ^0.14.0+5
+  cloud_firestore: ^0.12.9+5
   google_fonts: ^1.1.2
+
 
 dev_dependencies:
   flutter_test:
