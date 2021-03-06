@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/src/model/channel.dart';
 import 'package:frontend/src/ui/MessageScreen.dart';
-import '../model/message.dart';
+import '../services/auth_services.dart';
 
 class MainChat extends StatefulWidget {
   final Function goto;
@@ -95,12 +96,12 @@ class _MainChatState extends State<MainChat> {
 
   Widget channels(context) {
     return ListView.builder(
-        itemCount: chats.length,
+        itemCount: ch_all.length,
         itemBuilder: (BuildContext context, int index) {
-          final Message chat = chats[index];
+          final Channel chat = ch_all[index];
           return GestureDetector(
             onTap: () {
-              Navigator.of(context).push(_createRoute(chat.channel));
+              Navigator.of(context).push(_createRoute(chat.name));
             },
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -129,7 +130,7 @@ class _MainChatState extends State<MainChat> {
                             Row(
                               children: <Widget>[
                                 Text(
-                                  chat.channel,
+                                  chat.name,
                                   style: TextStyle(
                                     fontFamily: 'Lato',
                                     color: Color(0xfffa947e),
@@ -141,7 +142,7 @@ class _MainChatState extends State<MainChat> {
                             ),
                             Spacer(),
                             Text(
-                              chat.time,
+                              chat.type,
                               style: TextStyle(
                                 fontSize: 11,
                                 fontWeight: FontWeight.w300,
@@ -157,7 +158,7 @@ class _MainChatState extends State<MainChat> {
                           children: [
                             Expanded(
                               child: Text(
-                                text(chat.sender, chat.text),
+                                text(chat.type, chat.dp),
                                 style: TextStyle(
                                   fontFamily: 'Lato',
                                   fontSize: 15,

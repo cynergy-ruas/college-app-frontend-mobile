@@ -7,7 +7,7 @@ Color secondaryColor = HexColor('#F8F8F8');
 Color tertiaryColor = HexColor('#1FFFFFFF');
 
 class MessageScreen extends StatefulWidget {
-  String channel;
+  final String channel;
   MessageScreen(this.channel);
   @override
   _MessageScreenState createState() => _MessageScreenState();

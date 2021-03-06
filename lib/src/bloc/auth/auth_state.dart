@@ -14,3 +14,7 @@ class Authenticated extends AuthState {}
 class UnAuthenticated extends AuthState {}
 
 class Loading extends AuthState {}
+
+class Home extends AuthState {}
+
+class Chat extends AuthState {} 

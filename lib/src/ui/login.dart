@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:frontend/src/ui/chat.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/src/ui/home.dart';
 
 class Login extends StatefulWidget {
-  String user;
+  final String user;
   Login(this.user);
   @override
   _LoginState createState() => _LoginState();

@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/src/ui/confirm_pin.dart';
 
-import 'username.dart';
-
 class PinPage extends StatefulWidget {
+  final String text;
+  PinPage(this.text);
+
   @override
   _PinPageState createState() => _PinPageState();
 }
@@ -191,10 +192,12 @@ class _PinPageState extends State<PinPage> {
                         color: Colors.white,
                       ),
                       onPressed: () {
+                        print(widget.text);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ConfirmPin(pin)),
+                              builder: (context) =>
+                                  ConfirmPin(pin, widget.text)),
                         );
                       },
                     ),

@@ -105,7 +105,6 @@ class _AppHomeState extends State<AppHome> {
                 RegisterationPage(
                   goto: goto3,
                 ),
-                PinSetup(),
               ],
             )
           ],
