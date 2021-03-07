@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/src/ui/Registeration_screen 2.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:frontend/src/ui/stepper.dart';
 
 class RegisterationPage extends StatefulWidget {
   final Function goto;
@@ -27,10 +25,26 @@ class _RegisterationPageState extends State<RegisterationPage> {
     });
   }
 
+    static var _focusNode = new FocusNode();
+
+
   @override
   void initState() {
     super.initState();
+    _focusNode.addListener(() {
+      setState(() {});
+      print('Has focus: $_focusNode.hasFocus');
+    });
   }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -172,4 +186,101 @@ class _RegisterationPageState extends State<RegisterationPage> {
       ),
     );
   }
+
+List<Step> steps = [
+  Step(
+    title: Text(
+      'Name',
+      style: TextStyle(color: Color(0xFF8E8E8E)),
+    ),
+    content: Row(
+      children: [
+        Icon(Icons.account_circle, color: Color(0xFF8E8E8E)),
+        SizedBox(width: 10.0),
+        Expanded(
+          child: TextFormField(
+                        focusNode: _focusNode,
+
+            autofocus: true,
+            style: TextStyle(color: Color(0xFF8E8E8E)),
+            decoration: InputDecoration(
+                hintText: 'Enter your name',
+                hintStyle: TextStyle(color: Color(0xFF8E8E8E))),
+          ),
+        ),
+      ],
+    ),
+  ),
+  Step(
+    title: Text(
+      'Registration Number',
+      style: TextStyle(color: Color(0xFF8E8E8E)),
+    ),
+    content: Row(
+      children: [
+        Icon(Icons.account_circle, color: Color(0xFF8E8E8E)),
+        SizedBox(width: 10.0),
+        Expanded(
+          child: TextFormField(
+            focusNode: _focusNode,
+            autofocus: true,
+            style: TextStyle(color: Color(0xFF8E8E8E)),
+            decoration: InputDecoration(
+                hintText: '1XETXXXXXX',
+                hintStyle: TextStyle(color: Color(0xFF8E8E8E))),
+          ),
+        ),
+      ],
+    ),
+  ),
+  Step(
+    
+    title: Text(
+      'Department',
+      style: TextStyle(color: Color(0xFF8E8E8E)),
+    ),
+    content: Row(
+      children: [
+        Icon(Icons.account_circle, color: Color(0xFF8E8E8E)),
+        SizedBox(width: 10.0),
+        Expanded(
+          child: TextFormField(
+            focusNode: _focusNode,
+            autofocus: true,
+            style: TextStyle(color: Color(0xFF8E8E8E)),
+            decoration: InputDecoration(
+                hintText: 'FET',
+                hintStyle: TextStyle(color: Color(0xFF8E8E8E))),
+          ),
+        ),
+      ],
+    ),
+  ),
+  Step(
+    title: Text(
+      'Batch',
+      style: TextStyle(color: Color(0xFF8E8E8E)),
+    ),
+    content: Row(
+      children: [
+        Icon(Icons.account_circle, color: Color(0xFF8E8E8E)),
+        SizedBox(width: 10.0),
+        Expanded(
+          child: TextFormField(
+            focusNode: _focusNode,
+            autofocus: true,
+            style: TextStyle(color: Color(0xFF8E8E8E)),
+            decoration: InputDecoration(
+                hintText: '20XX',
+                hintStyle: TextStyle(color: Color(0xFF8E8E8E))),
+          ),
+        ),
+      ],
+    ),
+  ),
+];
+
+
+
+
 }
