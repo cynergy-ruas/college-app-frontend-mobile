@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/src/ui/confirm_pin.dart';
 
-import 'username.dart';
+import 'enter_username_page.dart';
 
 class PinPage extends StatefulWidget {
   @override
