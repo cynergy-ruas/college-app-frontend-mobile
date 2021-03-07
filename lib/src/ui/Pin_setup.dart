@@ -189,6 +189,7 @@ class _PinPageState extends State<PinPage> {
                       label: Icon(
                         CupertinoIcons.arrow_right_circle,
                         color: Colors.white,
+                        size: 30.0,
                       ),
                       onPressed: () {
                         Navigator.push(
