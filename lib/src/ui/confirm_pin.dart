@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/src/services/auth_services.dart';
+import 'package:frontend/src/services/firebase_services.dart';
+import 'package:frontend/src/ui/chat.dart';
 
 import 'Registeration_screen 1.dart';
 
 class ConfirmPin extends StatefulWidget {
+  final String regno;
+  ConfirmPin(this.regno);
+
   @override
   _ConfirmPinState createState() => _ConfirmPinState();
 }
@@ -15,6 +21,10 @@ class _ConfirmPinState extends State<ConfirmPin> {
   int _secondDigit;
   int _thirdDigit;
   int _fourthDigit;
+
+  var pin;
+
+  FirebaseService firebaseService;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,44 +37,44 @@ class _ConfirmPinState extends State<ConfirmPin> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Stack(
-            children: [
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Center(
-                        child: Text(
-                          "Confirm Your Pin",
-                          style: TextStyle(
-                            color: Color(0xfffa947e),
-                            fontSize: 20.0,
-                            fontFamily: 'Lato',
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(25.0),
+                            child: Center(
+                              child: Text(
+                                "Confirm Your Pin",
+                                style: TextStyle(
+                                  color: Color(0xfffa947e),
+                                  fontSize: 20.0,
+                                  fontFamily: 'Lato',
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30.0,
+                          ),
+                        ],
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      height: 250.0,
+                      decoration: ShapeDecoration(
+                        color: Color(0xff222831),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(40.0),
+                            bottomRight: Radius.circular(40.0),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
                   ],
                 ),
-                width: MediaQuery.of(context).size.width,
-                height: 250.0,
-                decoration: ShapeDecoration(
-                  color: Color(0xff222831),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40.0),
-                      bottomRight: Radius.circular(40.0),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
                 SizedBox(
                   height: 24.0,
                 ),
@@ -76,14 +86,10 @@ class _ConfirmPinState extends State<ConfirmPin> {
                 keypad(),
               ],
             ),
-        
-                    ),
-                  ),
-                ),
-          );
-        
-      
-    
+          ),
+        ),
+      ),
+    );
   }
 
   Widget keypad() {
@@ -163,10 +169,8 @@ class _ConfirmPinState extends State<ConfirmPin> {
                 children: <Widget>[
                   _pinKeyboardActionButton(
                       label: new Icon(
-                      
                         Icons.backspace,
                         color: Colors.white,
-                        
                       ),
                       onPressed: () {
                         setState(() {
@@ -192,7 +196,17 @@ class _ConfirmPinState extends State<ConfirmPin> {
                       color: Colors.white,
                       size: 30,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      var auth = register(widget.regno, pin);
+                      if (firebaseService.isLoggedIn) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MainChat(),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -266,19 +280,19 @@ class _ConfirmPinState extends State<ConfirmPin> {
       } else if (_fourthDigit == null) {
         _fourthDigit = _currentDigit;
 
-        var pin = _firstDigit.toString() +
+        pin = _firstDigit.toString() +
             _secondDigit.toString() +
             _thirdDigit.toString() +
             _fourthDigit.toString();
 
-        if (pin == finalPin) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => RegisterationPage(),
-            ),
-          );
-        }
+        // if (pin == finalPin) {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => RegisterationPage(),
+        //     ),
+        //   );
+        // }
       }
     });
   }
