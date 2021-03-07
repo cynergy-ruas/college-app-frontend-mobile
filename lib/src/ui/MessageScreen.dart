@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 Color PrimaryColor = HexColor('#222831');
 Color SecondaryColor = HexColor('#F8F8F8');
 Color TertiaryColor = HexColor('#1FFFFFFF');
 String channel =
     "Avengers"; // Here is where channel id has to be updated from API
+const YOUR_SERVER_IP = 'SERVER_IP';
+const YOUR_SERVER_PORT = 'SERVER_PORT';
+const URL = 'ws://$YOUR_SERVER_IP/channel/sender:$YOUR_SERVER_PORT';
 
 class MessageScreen extends StatefulWidget {
   @override
@@ -55,6 +59,7 @@ class _MessageScreenState extends State<MessageScreen> {
                                 shrinkWrap: true,
                                 itemCount: 20,
                                 itemBuilder: (context, index) {
+                                  // TODO Snapshot Logic
                                   return MessageBubble(
                                     width: width, // Width should not be changed
                                     height:

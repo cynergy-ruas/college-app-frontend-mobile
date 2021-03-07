@@ -18,6 +18,7 @@ dependencies:
   curved_navigation_bar: ^0.3.7
   build_runner: ^1.11.1
   equatable: ^1.2.3
+  web_socket_channel: ^1.1.0
   http: ^0.12.2
   hexcolor: ^2.0.0
   google_fonts: ^1.1.2
@@ -42,4 +43,4 @@ flutter:
         - asset: assets/fonts/ProductSans-Bold.ttf
     - family: HomeIcons
       fonts:
-        - asset: Icons/HomeIcons.ttf
+        - asset: assets/Icons/HomeIcons.ttf
