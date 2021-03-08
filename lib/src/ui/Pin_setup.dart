@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/src/ui/confirm_pin.dart';
 
-import 'username.dart';
+import 'enter_username_page.dart';
 
 class PinPage extends StatefulWidget {
   @override
@@ -189,6 +189,7 @@ class _PinPageState extends State<PinPage> {
                       label: Icon(
                         CupertinoIcons.arrow_right_circle,
                         color: Colors.white,
+                        size: 30.0,
                       ),
                       onPressed: () {
                         Navigator.push(

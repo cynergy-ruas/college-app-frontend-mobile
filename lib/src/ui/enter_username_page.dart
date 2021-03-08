@@ -86,9 +86,7 @@ class _EnterUserNameState extends State<EnterUserName> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Image.asset(
-          "assets/images/circle-arrow-right.png",
-        ),
+        child: Icon(Icons.arrow_forward_ios_outlined),
         backgroundColor: Colors.transparent,
         onPressed: () {
           confirm();

@@ -22,155 +22,191 @@ class _ConfirmPinState extends State<ConfirmPin> {
         backgroundColor: Color(0xff393e46),
         body: Center(
           child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Confirm Your Pin',
-                    style: TextStyle(color: Color(0xFFFA947E), fontSize: 20.0),
-                  ),
-                  SizedBox(
-                    height: 24.0,
-                  ),
-                  printPinField(),
-                  SizedBox(
-                    height: 24.0,
-                  ),
-                  //The keypad to input the PinSetup pin
-                  keypad(),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget keypad() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              new Expanded(
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _pinKeyboardInputButton(
-                        label: "1",
-                        onPressed: () {
-                          _setCurrentDigit(1);
-                        }),
-                    _pinKeyboardInputButton(
-                        label: "2",
-                        onPressed: () {
-                          _setCurrentDigit(2);
-                        }),
-                    _pinKeyboardInputButton(
-                        label: "3",
-                        onPressed: () {
-                          _setCurrentDigit(3);
-                        }),
-                  ],
-                ),
-              ),
-              new Expanded(
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _pinKeyboardInputButton(
-                        label: "4",
-                        onPressed: () {
-                          _setCurrentDigit(4);
-                        }),
-                    _pinKeyboardInputButton(
-                        label: "5",
-                        onPressed: () {
-                          _setCurrentDigit(5);
-                        }),
-                    _pinKeyboardInputButton(
-                        label: "6",
-                        onPressed: () {
-                          _setCurrentDigit(6);
-                        }),
-                  ],
-                ),
-              ),
-              new Expanded(
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _pinKeyboardInputButton(
-                        label: "7",
-                        onPressed: () {
-                          _setCurrentDigit(7);
-                        }),
-                    _pinKeyboardInputButton(
-                        label: "8",
-                        onPressed: () {
-                          _setCurrentDigit(8);
-                        }),
-                    _pinKeyboardInputButton(
-                        label: "9",
-                        onPressed: () {
-                          _setCurrentDigit(9);
-                        }),
-                  ],
-                ),
-              ),
-              new Expanded(
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _pinKeyboardActionButton(
-                        label: new Icon(
-                          Icons.backspace,
-                          color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Stack(
+            children: [
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Center(
+                        child: Text(
+                          "Confirm Your Pin",
+                          style: TextStyle(
+                            color: Color(0xfffa947e),
+                            fontSize: 20.0,
+                            fontFamily: 'Lato',
+                          ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            if (_fourthDigit != null) {
-                              _fourthDigit = null;
-                            } else if (_thirdDigit != null) {
-                              _thirdDigit = null;
-                            } else if (_secondDigit != null) {
-                              _secondDigit = null;
-                            } else if (_firstDigit != null) {
-                              _firstDigit = null;
-                            }
-                          });
-                        }),
-                    _pinKeyboardInputButton(
-                        label: "0",
-                        onPressed: () {
-                          _setCurrentDigit(0);
-                        }),
-                    _pinKeyboardActionButton(
-                      label: Icon(
-                        CupertinoIcons.arrow_right_circle,
-                        color: Colors.white,
                       ),
-                      onPressed: () {},
+                    ),
+                    SizedBox(
+                      height: 30.0,
                     ),
                   ],
+                ),
+                width: MediaQuery.of(context).size.width,
+                height: 250.0,
+                decoration: ShapeDecoration(
+                  color: Color(0xff222831),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40.0),
+                      bottomRight: Radius.circular(40.0),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.5,
-          decoration: ShapeDecoration(
-            color: Color(0xff222831),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40.0),
-                topRight: Radius.circular(40.0),
+                SizedBox(
+                  height: 24.0,
+                ),
+                printPinField(),
+                SizedBox(
+                  height: 24.0,
+                ),
+                //The keypad to input the PinSetup pin
+                keypad(),
+              ],
+            ),
+        
+                    ),
+                  ),
+                ),
+          );
+        
+      
+    
+  }
+
+  Widget keypad() {
+    return Expanded(
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            new Expanded(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _pinKeyboardInputButton(
+                      label: "1",
+                      onPressed: () {
+                        _setCurrentDigit(1);
+                      }),
+                  _pinKeyboardInputButton(
+                      label: "2",
+                      onPressed: () {
+                        _setCurrentDigit(2);
+                      }),
+                  _pinKeyboardInputButton(
+                      label: "3",
+                      onPressed: () {
+                        _setCurrentDigit(3);
+                      }),
+                ],
               ),
+            ),
+            new Expanded(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _pinKeyboardInputButton(
+                      label: "4",
+                      onPressed: () {
+                        _setCurrentDigit(4);
+                      }),
+                  _pinKeyboardInputButton(
+                      label: "5",
+                      onPressed: () {
+                        _setCurrentDigit(5);
+                      }),
+                  _pinKeyboardInputButton(
+                      label: "6",
+                      onPressed: () {
+                        _setCurrentDigit(6);
+                      }),
+                ],
+              ),
+            ),
+            new Expanded(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _pinKeyboardInputButton(
+                      label: "7",
+                      onPressed: () {
+                        _setCurrentDigit(7);
+                      }),
+                  _pinKeyboardInputButton(
+                      label: "8",
+                      onPressed: () {
+                        _setCurrentDigit(8);
+                      }),
+                  _pinKeyboardInputButton(
+                      label: "9",
+                      onPressed: () {
+                        _setCurrentDigit(9);
+                      }),
+                ],
+              ),
+            ),
+            new Expanded(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _pinKeyboardActionButton(
+                      label: new Icon(
+                      
+                        Icons.backspace,
+                        color: Colors.white,
+                        
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          if (_fourthDigit != null) {
+                            _fourthDigit = null;
+                          } else if (_thirdDigit != null) {
+                            _thirdDigit = null;
+                          } else if (_secondDigit != null) {
+                            _secondDigit = null;
+                          } else if (_firstDigit != null) {
+                            _firstDigit = null;
+                          }
+                        });
+                      }),
+                  _pinKeyboardInputButton(
+                      label: "0",
+                      onPressed: () {
+                        _setCurrentDigit(0);
+                      }),
+                  _pinKeyboardActionButton(
+                    label: Icon(
+                      CupertinoIcons.arrow_right_circle,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.5,
+        decoration: ShapeDecoration(
+          color: Color(0xff222831),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(40.0),
+              topRight: Radius.circular(40.0),
             ),
           ),
         ),
