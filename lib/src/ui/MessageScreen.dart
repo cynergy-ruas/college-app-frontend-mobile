@@ -1,16 +1,29 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/src/Model/ChatMessages.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 Color PrimaryColor = HexColor('#222831');
 Color SecondaryColor = HexColor('#F8F8F8');
 Color TertiaryColor = HexColor('#1FFFFFFF');
-String channel =
-    "Avengers"; // Here is where channel id has to be updated from API
-const YOUR_SERVER_IP = 'SERVER_IP';
-const YOUR_SERVER_PORT = 'SERVER_PORT';
-const URL = 'ws://$YOUR_SERVER_IP/channel/sender:$YOUR_SERVER_PORT';
+
+const SERVER_IP = '174.138.123.152';
+const CHANNEL_ID = 'Yolo';
+const SENDER_ID = 'Ujjwal Sumesh';
+const SERVER_PORT = '8080';
+const URL = "ws://$SERVER_IP:$SERVER_PORT/message/ws/$CHANNEL_ID/$SENDER_ID";
+final WebSocketChannel channel = WebSocketChannel.connect(Uri.parse(URL));
+var data;
+bool messageReady = false;
+Map<String, dynamic> keys;
+List<String> senders = [];
+List<String> messages = [];
+List<String> times = [];
+
+// SharedPreferences prefs;
+List databaseMessages;
 
 class MessageScreen extends StatefulWidget {
   @override
@@ -19,166 +32,159 @@ class MessageScreen extends StatefulWidget {
 
 class _MessageScreenState extends State<MessageScreen> {
   @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     String message;
-
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        //resizeToAvoidBottomInset: true,
         backgroundColor: PrimaryColor,
-        body: Stack(
-          children: [
-            Positioned(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Column(
-                children: [
-                  Container(
-                    height: height * 0.85,
-                    decoration: BoxDecoration(
-                      color: Colors.white12,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(80),
-                          bottomRight: Radius.circular(80)),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: width * 0.1),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: height * 0.13,
-                          ),
-                          Expanded(
-                            child: ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                physics: const AlwaysScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: 20,
-                                itemBuilder: (context, index) {
-                                  // TODO Snapshot Logic
-                                  return MessageBubble(
-                                    width: width, // Width should not be changed
-                                    height:
-                                        height, // Height should not be changed
-                                    isMe:
-                                        false, // isMe is true if sender is the same as current user, else false
-                                    message: "Heya", // Must be updated by API
-                                    sender: "Ujjwal", // Must be updated by API
-                                    time: "3:15 a.m",
-                                  ); // Must be updated by API
-                                }),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(width * 0.06),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.grey,
-                      ),
-                      child: Theme(
-                        data: new ThemeData(
-                          primaryColor: Colors.grey,
-                          primaryColorDark: Colors.grey,
-                        ),
-                        child: TextField(
-                          cursorColor: Colors.white12,
-                          decoration: InputDecoration(
-                              prefixIcon: GestureDetector(
-                                  onTap: () {
-                                    // Display other options such as gallery etc
-                                  },
-                                  child: Icon(Icons.add, color: Colors.white)),
-                              suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    if (message != null) {
-                                      // Send Message Functionality
-                                    }
-                                  },
-                                  child: Icon(
-                                    Icons.send,
-                                    color: Colors.white,
-                                  )),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              )),
-                          onChanged: (value) {
-                            message = value;
-                          },
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+        body: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Stack(
+            children: [
+              Container(
+                height: height,
               ),
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      left: width * 0.05,
-                      top: height * 0.05,
-                      bottom: height * 0.01),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.arrow_back_ios_outlined,
-                        color: Colors.white,
-                        size: height * 0.04,
+              Positioned(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 0,
+                right: 0,
+                child: Column(
+                  children: [
+                    Container(
+                      height: height * 0.85,
+                      decoration: BoxDecoration(
+                        color: Colors.white12,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(80),
+                            bottomRight: Radius.circular(80)),
                       ),
-                      SizedBox(
-                        width: width * 0.3,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            channel,
-                            style: TextStyle(
-                                fontSize: height * 0.035,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.cyanAccent),
-                          ),
-                          SizedBox(
-                            height: height * 0.02,
-                            width: width * 0.35,
-                            child: Divider(
-                              thickness: 8,
-                              color: Colors.grey,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        width: width * 0.02,
-                      ),
-                      Container(
-                        height: height * 0.07,
-                        width: height * 0.07,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(80),
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: width * 0.1),
+                        child: StreamBuild(
+                          height: height,
+                          width: width,
                         ),
-                        // child: The Image
-                      )
-                    ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(width * 0.06),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.grey,
+                        ),
+                        child: Theme(
+                          data: new ThemeData(
+                            primaryColor: Colors.grey,
+                            primaryColorDark: Colors.grey,
+                          ),
+                          child: TextField(
+                            cursorColor: Colors.white12,
+                            decoration: InputDecoration(
+                                prefixIcon: GestureDetector(
+                                    onTap: () {
+                                      // Display other options such as gallery etc
+                                    },
+                                    child:
+                                        Icon(Icons.add, color: Colors.white)),
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.send),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    print(message);
+                                    sendMessage(message);
+                                  },
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                )),
+                            onChanged: (value) {
+                              setState(() {
+                                message = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        left: width * 0.05,
+                        top: height * 0.05,
+                        bottom: height * 0.01),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.arrow_back_ios_outlined,
+                          color: Colors.white,
+                          size: height * 0.04,
+                        ),
+                        SizedBox(
+                          width: width * 0.3,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              CHANNEL_ID,
+                              style: TextStyle(
+                                  fontSize: height * 0.035,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.cyanAccent),
+                            ),
+                            SizedBox(
+                              height: height * 0.02,
+                              width: width * 0.35,
+                              child: Divider(
+                                thickness: 8,
+                                color: Colors.grey,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: width * 0.02,
+                        ),
+                        Container(
+                          height: height * 0.07,
+                          width: height * 0.07,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(80),
+                          ),
+                          // child: The Image
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
+  }
+
+  @override
+  void dispose() {
+    channel.sink.close();
+    super.dispose();
   }
 }
 
@@ -278,4 +284,83 @@ class MessageBubble extends StatelessWidget {
       ),
     );
   }
+}
+
+class StreamBuild extends StatelessWidget {
+  StreamBuild({
+    @required this.height,
+    @required this.width,
+  });
+
+  final double height;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: height * 0.13,
+        ),
+        StreamBuilder<Object>(
+            stream: channel.stream,
+            builder: (context, snapshot) {
+              data = snapshot.data;
+              if (data == null) {
+                return Container(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                print(data);
+                keys = jsonDecode(data);
+                print(keys);
+                if (!messages.contains(keys["message"])) {
+                  senders.add(keys["sender_id"]);
+                  messages.add(keys["message"]);
+                }
+                databaseMessages.add(keys);
+                print(senders);
+                print(messages);
+                return Expanded(
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: senders.length,
+                      itemBuilder: (context, index) {
+                        return MessageBubble(
+                            width: width,
+                            height: height,
+                            isMe: false,
+                            // isMe is true if sender is the same as current user, else false
+                            message: messages[index],
+                            // Must be updated by API
+                            sender: senders[index],
+                            // Must be updated by API
+                            time: "something"); // MuRst be updated by API
+                      }),
+                );
+              }
+            })
+      ],
+    );
+  }
+}
+
+sendMessage(message) async {
+  if (message == null && !messages.contains(message))
+    channel.sink.add(jsonEncode({
+      'channel_id': CHANNEL_ID,
+      'message': 'heya there',
+      'sender_id': SENDER_ID,
+      'timestamp': DateTime.now().minute
+    }));
+
+  prefs.setString(
+      'messages', Messages.encode(Messages.toMap(databaseMessages)));
+}
+
+getData() async {
+  prefs = await SharedPreferences.getInstance();
+  databaseMessages = Messages.decode(prefs.getString('messages'));
 }

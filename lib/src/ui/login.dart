@@ -1,6 +1,7 @@
 import 'package:frontend/src/services/auth_services.dart';
 import 'package:frontend/src/services/firebase_services.dart';
 import 'package:frontend/src/ui/chat.dart';
+import 'package:frontend/src/ui/channel_page.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -241,7 +242,7 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MainChat(),
+                              builder: (context) => ChannelPage(),
                             ),
                           );
                         }

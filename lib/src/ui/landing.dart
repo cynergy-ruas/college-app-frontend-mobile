@@ -1,17 +1,14 @@
-import 'package:frontend/src/ui/username.dart';
 import 'package:flutter/material.dart';
 
-import 'Registeration_screen 1.dart';
-
-class EntryPage extends StatefulWidget {
+class LandingPage extends StatefulWidget {
   final Function goto;
 
-  const EntryPage({Key key, this.goto}) : super(key: key);
+  const LandingPage({Key key, this.goto}) : super(key: key);
   @override
-  _EntryPageState createState() => _EntryPageState();
+  _LandingPageState createState() => _LandingPageState();
 }
 
-class _EntryPageState extends State<EntryPage> {
+class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

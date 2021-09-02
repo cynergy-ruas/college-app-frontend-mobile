@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/src/bloc/auth/auth_bloc.dart';
-import 'package:frontend/src/ui/MessageScreen.dart';
 import 'package:frontend/src/ui/Registeration_screen%201.dart';
 import 'package:frontend/src/ui/Registeration_screen%202.dart';
-import 'package:frontend/src/ui/entry.dart';
+import 'package:frontend/src/ui/landing.dart';
 import 'package:frontend/src/ui/login.dart';
-import 'package:frontend/src/ui/username.dart';
+import 'package:frontend/src/ui/enter_username_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,18 +18,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primaryColor: Color(0xFF03AFB7)),
       debugShowCheckedModeBanner: false,
       home: Material(
-        child: AppHome(),
+        child: LandingPageSkeleton(),
       ),
     );
   }
 }
 
-class AppHome extends StatefulWidget {
+class LandingPageSkeleton extends StatefulWidget {
   @override
-  _AppHomeState createState() => _AppHomeState();
+  _LandingPageSkeletonState createState() => _LandingPageSkeletonState();
 }
 
-class _AppHomeState extends State<AppHome> {
+class _LandingPageSkeletonState extends State<LandingPageSkeleton> {
   AuthBloc _authBloc;
   PageController pageController1;
   PageController pageController2;
@@ -96,7 +95,7 @@ class _AppHomeState extends State<AppHome> {
                 Login(user)
               ],
             ),
-            EntryPage(
+            LandingPage(
               goto: goto1,
             ),
             PageView(
