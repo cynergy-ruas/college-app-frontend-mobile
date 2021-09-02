@@ -13,15 +13,17 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.0
-  image_picker: ^0.6.7+11
+  image_picker: ^0.7.0
   flutter_bloc: ^6.0.1
   curved_navigation_bar: ^0.3.7
   build_runner: ^1.11.1
   equatable: ^1.2.3
   web_socket_channel: ^1.1.0
-  http: ^0.12.2
+  http: ^0.13.0
   hexcolor: ^2.0.0
-  google_fonts: ^1.1.2
+  google_fonts: ^2.0.0
+  firebase_core: ^1.0.0
+  firebase_auth: ^1.0.0
 
 dev_dependencies:
   flutter_test:

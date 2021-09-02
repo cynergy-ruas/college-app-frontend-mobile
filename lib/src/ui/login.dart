@@ -1,3 +1,6 @@
+import 'package:frontend/src/services/auth_services.dart';
+import 'package:frontend/src/services/firebase_services.dart';
+import 'package:frontend/src/ui/chat.dart';
 import 'package:frontend/src/ui/channel_page.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +19,8 @@ class _LoginState extends State<Login> {
   int _thirdDigit;
   int _fourthDigit;
   var pin;
+
+  FirebaseService firebaseService;
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +237,8 @@ class _LoginState extends State<Login> {
                       label:
                           Image.asset("assets/images/circle-arrow-right.png"),
                       onPressed: () {
-                        if (pin == finalPin) {
+                        var auth = login(widget.user, pin);
+                        if (firebaseService.isLoggedIn) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
